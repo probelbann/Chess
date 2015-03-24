@@ -55,8 +55,13 @@ public class Fields {
 
     }
 
-    public void setPosition(String figure, int letter, int digit) {
-        board[letter][digit] = figure;
+    public void setPosition(int from1, int from2, int where1, int where2) {
+        int valueFrom2 = 7-(from2-1);
+        int valueWhere2 = 7-(where2-1);
+        String nameFigure = board[from1][valueFrom2];
+        System.out.println(nameFigure);
+        board[where1][valueWhere2] = nameFigure;
+        board[from1][valueFrom2] = "\u2588";
     }
 
     public void removePosition(int letter, int digit) {
