@@ -11,8 +11,16 @@ public class Fields {
     static {
         for (int i = 0; i < SIZE_BOARD; i++) {
             for (int j = 0; j < SIZE_BOARD; j++) {
-                board[i][j] = "\u2588";
-            }
+                board[i][j] = "\u2588";     A   B   C   D   E   F   H   G
+            }                            8 WB  Wf  Wf  Wf  Wf  Wf  Wf  Wf 8
+                                         7 WB  Wf  Wf  Wf  Wf  Wf  Wf  Wf 7
+                                         6 WB  Wf  Wf  Wf  Wf  Wf  Wf  Wf 6
+                                         5 WB  Wf  Wf  Wf  Wf  Wf  Wf  Wf 5
+                                         4 WB  Wf  Wf  Wf  Wf  Wf  Wf  Wf 4
+                                         3 WB  Wf  Wf  Wf  Wf  Wf  Wf  Wf 3
+                                         2 WB  Wf  Wf  Wf  Wf  Wf  Wf  Wf 2
+                                         1 WB  Wf  Wf  Wf  Wf  Wf  Wf  WB 1
+                                            A   B   C   D   E   F   H   G
             System.out.println();
         }
         //чёрные
