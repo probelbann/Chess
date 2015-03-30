@@ -11,65 +11,66 @@ public class Fields {
     static {
         for (int i = 0; i < SIZE_BOARD; i++) {
             for (int j = 0; j < SIZE_BOARD; j++) {
-                board[i][j] = "\u2588";     A   B   C   D   E   F   H   G
-            }                            8 WB  Wf  Wf  Wf  Wf  Wf  Wf  Wf 8
-                                         7 WB  Wf  Wf  Wf  Wf  Wf  Wf  Wf 7
-                                         6 WB  Wf  Wf  Wf  Wf  Wf  Wf  Wf 6
-                                         5 WB  Wf  Wf  Wf  Wf  Wf  Wf  Wf 5
-                                         4 WB  Wf  Wf  Wf  Wf  Wf  Wf  Wf 4
-                                         3 WB  Wf  Wf  Wf  Wf  Wf  Wf  Wf 3
-                                         2 WB  Wf  Wf  Wf  Wf  Wf  Wf  Wf 2
-                                         1 WB  Wf  Wf  Wf  Wf  Wf  Wf  WB 1
-                                            A   B   C   D   E   F   H   G
+                board[i][j] = "  ";
+            }
+
             System.out.println();
         }
         //чёрные
-        board[0][0] = "\u265C";
-        board[0][1] = "\u265E";
-        board[0][2] = "\u265D";
-        board[0][3] = "\u265B";
-        board[0][4] = "\u265A";
-        board[0][5] = "\u265D";
-        board[0][6] = "\u265E";
-        board[0][7] = "\u265C";
+        //                 пример поля
+             /*A   B   C   D   E   F   H   G
+            8 BR  BK  BB  BQ  B   BB  BK  BR 8
+            7 BP  BP  BP  BP  BP  BP  BP  BP 7
+            6                                6
+            5                                5
+            4                                4
+            3                                3
+            2 WP  WP  WP  WP  WP  WP  WP  WP 2
+            1 WR  WK  WB  WQ  W   WB  WK  WR 1
+               A   B   C   D   E   F   H   G*/
+        board[0][0] = "BR";
+        board[0][1] = "BK";
+        board[0][2] = "BB";
+        board[0][3] = "BQ";
+        board[0][4] = "B ";
+        board[0][5] = "BB";
+        board[0][6] = "BK";
+        board[0][7] = "BR";
 
-        board[1][0] = "\u265F";
-        board[1][1] = "\u265F";
-        board[1][2] = "\u265F";
-        board[1][3] = "\u265F";
-        board[1][4] = "\u265F";
-        board[1][5] = "\u265F";
-        board[1][6] = "\u265F";
-        board[1][7] = "\u265F";
+        board[1][0] = "BP";
+        board[1][1] = "BP";
+        board[1][2] = "BP";
+        board[1][3] = "BP";
+        board[1][4] = "BP";
+        board[1][5] = "BP";
+        board[1][6] = "BP";
+        board[1][7] = "BP";
 
         //белые
-        board[6][0] = "\u2659";
-        board[6][1] = "\u2659";
-        board[6][2] = "\u2659";
-        board[6][3] = "\u2659";
-        board[6][4] = "\u2659";
-        board[6][5] = "\u2659";
-        board[6][6] = "\u2659";
-        board[6][7] = "\u2659";
+        board[6][0] = "WP";
+        board[6][1] = "WP";
+        board[6][2] = "WP";
+        board[6][3] = "WP";
+        board[6][4] = "WP";
+        board[6][5] = "WP";
+        board[6][6] = "WP";
+        board[6][7] = "WP";
 
-        board[7][0] = "\u2656";
-        board[7][1] = "\u2658";
-        board[7][2] = "\u2657";
-        board[7][3] = "\u2655";
-        board[7][4] = "\u2654";
-        board[7][5] = "\u2657";
-        board[7][6] = "\u2658";
-        board[7][7] = "\u2656";
+        board[7][0] = "WR";
+        board[7][1] = "WK";
+        board[7][2] = "WB";
+        board[7][3] = "WQ";
+        board[7][4] = "W ";
+        board[7][5] = "WB";
+        board[7][6] = "WK";
+        board[7][7] = "WR";
 
     }
 
     public void setPosition(int from1, int from2, int where1, int where2) {
-        int valueFrom2 = 7-(from2-1);
-        int valueWhere2 = 7-(where2-1);
-        String nameFigure = board[from1][valueFrom2];
-        System.out.println(nameFigure);
-        board[where1][valueWhere2] = nameFigure;
-        board[from1][valueFrom2] = "\u2588";
+        String nameFigure = board[from1][from2];
+        board[from1][from2] = "  ";
+        board[where1][where2] = nameFigure;
     }
 
     public void removePosition(int letter, int digit) {
@@ -79,18 +80,17 @@ public class Fields {
     public void showBoard() {
         int numberL = 8;
         int numberR = 8;
-        System.out.println(" "+"\u0104"+" \u0181 "+"\u0106"+"\u0110"+" \u0204"+" \u0191"+
-                "\u01E4"+" \u021E");
+        System.out.println("    A" + "   B" + "   C" + "   D" + "   E" + "   F" + "   G" + "   H");
         for (int i = 0; i < SIZE_BOARD; i++) {
-            System.out.print(numberL--);
+            System.out.print(numberL-- + "  ");
             for (int j = 0; j < SIZE_BOARD; j++) {
-                System.out.print(board[i][j]);
+                System.out.print(board[i][j] + "  ");
             }
             System.out.print(numberR--);
             System.out.println();
         }
-        System.out.println(" "+"\u0104"+" \u0181 "+"\u0106"+"\u0110"+" \u0204"+" \u0191"+
-                "\u01E4"+" \u021E");
+        System.out.println("    A" + "   B" + "   C" + "   D" + "   E" + "   F" + "   G" + "   H");
+
     }
 
 }

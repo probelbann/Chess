@@ -1,5 +1,6 @@
 package Chess.common;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -47,17 +48,34 @@ public class GameImplementation {
     }
 
     private void takeAndPutFigure(String positionFrom, String positionWhere) {
-        String from1 = String.valueOf(positionFrom.charAt(0));
-        String from2 = String.valueOf(positionFrom.charAt(1));
-        String where1 = String.valueOf(positionWhere.charAt(0));
-        String where2 = String.valueOf(positionWhere.charAt(1));
+        Value valueFr = switchMathToChessMath(positionFrom);
+        Value valueWh = switchMathToChessMath(positionWhere);
+
+        board.setPosition(valueFr.getValue1(), valueFr.getValue2(), valueWh.getValue1(), valueWh.getValue2());
+
+    }
+
+    private Value switchMathToChessMath(String stringValue) {
+        Value value = new Value();
+        String from1 = " ", from2 = " ";
+
+        try {
+        from1 = String.valueOf(stringValue.charAt(0));
+        from2 = String.valueOf(stringValue.charAt(1));
+        } catch (Exception e) {
+            System.out.println("Введите корректный ход");
+            makeMove(player1);
+        }
 
         int fr1 = switchCharacterToDigit(from1);
         int fr2 = Integer.parseInt(from2);
-        int wh1 = switchCharacterToDigit(where1);
-        int wh2 = Integer.parseInt(where2);
 
-        board.setPosition(fr1, fr2, wh1, wh2);
+        int fr22 = 7 - (fr2 - 1);
+
+        value.setValue1(fr22);
+        value.setValue2(fr1);
+
+        return value;
     }
 
     private int switchCharacterToDigit(String character) {
