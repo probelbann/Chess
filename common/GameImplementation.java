@@ -11,8 +11,10 @@ public class GameImplementation {
     public Player player1 = new Player();
     public Player player2 = new Player();
     public Scanner scanner = new Scanner(System.in);
-    private boolean winner;
+    private boolean winner = false;
     private Fields board = new Fields();
+    private static int countMove = 1;
+
 
     public void start() {
         System.out.println("Введите имя первого и второго игрока: ");
@@ -30,11 +32,15 @@ public class GameImplementation {
 
     private void startGamePVP() {
         while (!winner) {
-            makeMove(player1);
-            if (!winner) {
+            if (countMove % 2 == 1) {
+                makeMove(player1);
+                countMove++;
+            } else {
                 makeMove(player2);
-            } else break;
+                countMove++;
+            }
         }
+        showWinner();
     }
 
     private void makeMove(Player player) {
@@ -42,7 +48,10 @@ public class GameImplementation {
         String positionFrom = scanner.next();
         String positionWhere = scanner.next();
 
-        takeAndPutFigure(positionFrom, positionWhere);
+        if(!positionFrom.equals("  ")) {
+            takeAndPutFigure(positionFrom, positionWhere);
+            board.findWinner();
+        } else makeMove(player);
 
         board.showBoard();
     }
@@ -98,6 +107,12 @@ public class GameImplementation {
             digit = 7;
         }
         return digit;
+    }
+
+    private void showWinner() {
+        if(countMove % 2 == 1) {
+            System.out.println("WINNER: " + player1.getName() + "\n Figures: " + player1.getColor());
+        } else System.out.println("WINNER: " + player2.getName() + "\n Figures: " + player2.getColor());
     }
 
 }

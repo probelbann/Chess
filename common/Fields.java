@@ -16,18 +16,7 @@ public class Fields {
 
             System.out.println();
         }
-        //чёрные
-        //                 пример поля
-             /*A   B   C   D   E   F   H   G
-            8 BR  BK  BB  BQ  B   BB  BK  BR 8
-            7 BP  BP  BP  BP  BP  BP  BP  BP 7
-            6                                6
-            5                                5
-            4                                4
-            3                                3
-            2 WP  WP  WP  WP  WP  WP  WP  WP 2
-            1 WR  WK  WB  WQ  W   WB  WK  WR 1
-               A   B   C   D   E   F   H   G*/
+
         board[0][0] = "BR";
         board[0][1] = "BK";
         board[0][2] = "BB";
@@ -73,10 +62,6 @@ public class Fields {
         board[where1][where2] = nameFigure;
     }
 
-    public void removePosition(int letter, int digit) {
-        board[letter][digit] = " ";
-    }
-
     public void showBoard() {
         int numberL = 8;
         int numberR = 8;
@@ -90,7 +75,19 @@ public class Fields {
             System.out.println();
         }
         System.out.println("    A" + "   B" + "   C" + "   D" + "   E" + "   F" + "   G" + "   H");
+    }
 
+    public void findWinner() {
+        boolean whiteWins = false, blackWins = false;
+        for (int i = 0; i < 7; i++) {
+            for (int j = 0; j < 7; j++) {
+                if(!board[i][j].contains("W ")) {
+                    blackWins = true;
+                } else if(!board[i][j].contains("B ")) {
+                    whiteWins = true;
+                }
+            }
+        }
     }
 
 }
