@@ -1,6 +1,5 @@
 package Chess.common;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -17,15 +16,17 @@ public class GameImplementation {
 
 
     public void start() {
-        System.out.println("Введите имя первого и второго игрока: ");
+        board.initWhiteFigureList();
+        board.initBlackFigureList();
+        System.out.println("Enter nicknames of two players: ");
         String playerName1 = scanner.next();
         String playerName2 = scanner.next();
 
-        player1 = new Player(playerName1, "Белые");
-        player2 = new Player(playerName2, "Чёрные");
+        player1 = new Player(playerName1, "White");
+        player2 = new Player(playerName2, "White");
 
-        System.out.println(player1.getName() + " играет за " + player1.getColor());
-        System.out.println(player2.getName() + " играет за " + player2.getColor());
+        System.out.println(player1.getName() + " plays " + player1.getColor());
+        System.out.println(player2.getName() + " plays " + player2.getColor());
         board.showBoard();
         startGamePVP();
     }
@@ -33,18 +34,22 @@ public class GameImplementation {
     private void startGamePVP() {
         while (!winner) {
             if (countMove % 2 == 1) {
-                makeMove(player1);
-                countMove++;
+                makeStep(player1);
             } else {
-                makeMove(player2);
-                countMove++;
+                makeStep(player2);
             }
         }
         showWinner();
     }
 
+    private void makeStep(Player player) {
+        makeMove(player);
+        winner = board.findWinner();
+        countMove++;
+    }
+
     private void makeMove(Player player) {
-        System.out.println(player.getName() + " ходит (" + player.getColor() + ")");
+        System.out.println(player.getName() + " makes move (" + player.getColor() + ")");
         String positionFrom = scanner.next();
         String positionWhere = scanner.next();
 
@@ -57,11 +62,20 @@ public class GameImplementation {
     }
 
     private void takeAndPutFigure(String positionFrom, String positionWhere) {
+        String figure;
+
         Value valueFr = switchMathToChessMath(positionFrom);
         Value valueWh = switchMathToChessMath(positionWhere);
 
         board.setPosition(valueFr.getValue1(), valueFr.getValue2(), valueWh.getValue1(), valueWh.getValue2());
 
+        figure = board.getPosition(valueWh.getValue1(), valueWh.getValue2());
+
+        if (countMove % 2 == 1) {
+            board.killFigureFromList(true, figure);
+        } else board.killFigureFromList(false, figure);
+
+        board.showFiguresLists();
     }
 
     private Value switchMathToChessMath(String stringValue) {
@@ -72,7 +86,7 @@ public class GameImplementation {
         from1 = String.valueOf(stringValue.charAt(0));
         from2 = String.valueOf(stringValue.charAt(1));
         } catch (Exception e) {
-            System.out.println("Введите корректный ход");
+            System.out.println("Input correct move!");
             makeMove(player1);
         }
 
@@ -111,8 +125,8 @@ public class GameImplementation {
 
     private void showWinner() {
         if(countMove % 2 == 1) {
-            System.out.println("WINNER: " + player1.getName() + "\n Figures: " + player1.getColor());
-        } else System.out.println("WINNER: " + player2.getName() + "\n Figures: " + player2.getColor());
+            System.out.println("WINNER: " + player1.getName() + "\nFigures: " + player1.getColor());
+        } else System.out.println("WINNER: " + player2.getName() + "\nFigures: " + player2.getColor());
     }
 
 }
